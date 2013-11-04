@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @list.title %>
+</p>
+
+<%= link_to 'Edit', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>
+
+<h2>Items</h2>
+<div id="items">
+
+  <ul id="items">
+      <% @list.items.each do |item| %>
+        <li><%= item.title %><br><%=link_to 'Destroy', [@list,item], method: :delete, data: { confirm: 'Are you sure?' } %>
+          <a href="<%=@list.id%>/items/<%=item.id%>/moveup">Move Up</a>
+          <a href="<%=@list.id%>/items/<%=item.id%>/movedown">Move down</a>
+          <a href="<%=@list.id%>/items/<%=item.id%>/movetop">Move Top</a>
+          <a href="<%=@list.id%>/items/<%=item.id%>/movebottom">Move Bottom</a>
+        </li>
+
+      <% end %>
+  </ul>
+
+</div>
+
+<%= form_for [@list, Item.new] do |f| %>
+    <p>
+      <%= f.label :body, "New Item" %><br/>
+      <%= f.text_field :title %>
+    </p>
+    <p><%= f.submit "Add Item" %></p>
+<% end %>
